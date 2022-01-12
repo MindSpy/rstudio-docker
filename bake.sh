@@ -78,7 +78,10 @@ else
 fi
 
 if [ -z "${GIT_BRANCH}" -o "${GIT_BRANCH}" == "DIRTY" ]; then
-  BAKE_ARGS="$BAKE_ARGS --progress=plain --load --set *.platform=${platform:-${default_platform}} dev"
+  if [ -z "$targets" ]
+  then targets=dev
+   fi
+  BAKE_ARGS="$BAKE_ARGS --progress=plain --load --set *.platform=${platform:-${default_platform}} $targets"
 else
   if [ -n "$platform" ]; then
     BAKE_ARGS="$BAKE_ARGS --set *.platform=${platform}"
